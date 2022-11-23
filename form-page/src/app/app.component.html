@@ -1,0 +1,95 @@
+<h1 style="color:brown;" >Product-Order-Form</h1>
+<form [formGroup]="exform" (ngSubmit)="onSubmit()">
+  
+  <!--Id,Name,Cost field-->
+
+  <div class="form-group row mt-3">
+    <label for="inputId" class="col-sm-2 col-form-label">Product Id</label>
+    <div class="col-sm-4">
+      <input type="number" formControlName="id" class="form-control" id="inputId" required>
+      <span class="form-text text-danger" *ngIf="id && id.invalid && id.touched ">This input field is not valid</span>
+    </div>
+  </div>
+  <div class="form-group row mt-3">
+    <label for="inputName" class="col-sm-2 col-form-label">Product Name</label>
+    <div class="col-sm-4">
+      <input type="text" formControlName="name" class="form-control" id="inputName"required>
+      <span class="form-text text-danger" *ngIf="name && name.invalid && name.touched">This input field is not valid</span>
+    </div>
+  </div>
+  <div class="form-group row mt-3">
+    <label for="inputCost" class="col-sm-2 col-form-label">Product Cost</label>
+    <div class="col-sm-4">
+      <input type="number" formControlName="cost" class="form-control" id="inputCost" required>
+      <span class="form-text text-danger" *ngIf="cost && cost.invalid && cost.touched">This input field is not valid</span>
+    </div>
+  </div>
+
+  <!--Radio button field-->
+
+  <fieldset class="form-group mt-3">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Product Online</legend>
+     
+      <div class="col-sm-10">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" formControlName="online" type="radio" name="online" id="yes" value="Yes" >
+          <label class="form-check-label" for="flexRadioDefault1">
+            Yes
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" formControlName="online" type="radio" name="online" id="no" value="No" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            No
+          </label>    
+    </div>
+    <div class="form-text text-danger" *ngIf="online && online.errors?.['required']">Select Method</div>
+  </div>
+
+    </div>
+  </fieldset>
+
+  <!--Category field-->
+
+  <div class="form-group row mt-3">
+    <label for="inputId3" class="col-sm-2 col-form-label">Product Category</label>
+    <div class="col-sm-4">
+  <select class="form-select" formControlName="category" name="category" aria-label="Default select example">
+    <option  value="grocery">Grocery</option>
+    <option  value="mobile">Mobile</option>
+    <option  value="electronics">Electronics</option>
+    <option  value="cloths">Cloths</option>
+  </select>
+  <div class="form-text text-danger" *ngIf="category && category.invalid && category.touched">Select Category</div>
+  </div>
+ </div>
+
+ <!--Checkbox field-->
+
+  <fieldset class="form-group row mt-3">
+    <div class="row">
+    <div class="col-form-label col-sm-2 pt-0">Available in Store</div>
+
+    <div class="col-sm-10" >
+      <div class="form-check form-check-inline" *ngFor="let data of Data; let i=index">
+        <input class="form-check-input"  [value]="data.value" (change)="onCheckboxChange($event)" type="checkbox" >
+        <label class="form-check-label">
+        {{data.name}}
+        </label>
+      </div>
+      <div class="form-text text-danger" *ngIf="['checkArray'] && this.exform.controls['checkArray'].errors?.['required']">Select Store</div>
+      </div>
+
+      </div>
+  </fieldset>
+
+ <!--Submit button-->  
+
+  <div class="form-group row">
+    <div class="col-sm-10 mt-3">
+      <button [disabled]="exform.invalid"  class="btn btn-primary">Add Product</button>
+    </div>
+  </div>
+  
+</form>
